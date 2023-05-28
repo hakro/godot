@@ -285,6 +285,8 @@ class EditorInspectorSection : public Container {
 	bool vbox_added = false; // Optimization.
 	Color bg_color;
 	bool foldable = false;
+	bool checkable = false;
+	bool checked = false;
 	int indent_depth = 0;
 
 	Timer *dropping_unfold_timer = nullptr;
@@ -296,6 +298,7 @@ class EditorInspectorSection : public Container {
 	void _test_unfold();
 	int _get_header_height();
 	Ref<Texture2D> _get_arrow();
+	Rect2 check_rect;
 
 protected:
 	Object *object = nullptr;

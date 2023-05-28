@@ -1354,6 +1354,22 @@ void EditorInspectorSection::_notification(int p_what) {
 					margin_start += arrow->get_width();
 				}
 
+				// tmp
+				checkable = true;
+				if (checkable) {
+					Ref<Texture2D> checkbox;
+					if (checked) {
+						checkbox = get_theme_icon(SNAME("GuiChecked"), SNAME("EditorIcons"));
+					} else {
+						checkbox = get_theme_icon(SNAME("GuiUnchecked"), SNAME("EditorIcons"));
+					}
+
+					Color color2(1, 1, 1);
+					check_rect = Rect2(margin_start, ((header_height - checkbox->get_height()) / 2), checkbox->get_width(), checkbox->get_height());
+					draw_texture(checkbox, check_rect.position, color2);
+					margin_start += checkbox->get_width() + separation;
+				}
+
 				int available = get_size().width - (margin_start + margin_end);
 
 				// - Count of revertable properties.
@@ -1514,6 +1530,11 @@ void EditorInspectorSection::gui_input(const Ref<InputEvent> &p_event) {
 
 	Ref<InputEventMouseButton> mb = p_event;
 	if (mb.is_valid() && mb->is_pressed() && mb->get_button_index() == MouseButton::LEFT) {
+		if (checkable && check_rect.has_point(mb->get_position())) {
+			checked = !checked;
+			queue_redraw();
+			return;
+		}
 		if (object->editor_is_section_unfolded(section)) {
 			int header_height = _get_header_height();
 
