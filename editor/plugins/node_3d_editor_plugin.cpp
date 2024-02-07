@@ -38,6 +38,7 @@
 #include "core/os/keyboard.h"
 #include "editor/debugger/editor_debugger_node.h"
 #include "editor/editor_node.h"
+#include "editor/editor_properties.h"
 #include "editor/editor_settings.h"
 #include "editor/editor_string_names.h"
 #include "editor/editor_undo_redo_manager.h"
@@ -8594,6 +8595,12 @@ Node3DEditor::Node3DEditor() {
 	for (uint32_t i = 0; i < VIEWPORTS_COUNT; ++i) {
 		settings_dialog->connect("confirmed", callable_mp(viewports[i], &Node3DEditorViewport::_view_settings_confirmed).bind(0.0));
 	}
+
+	EditorPropertyLayers *grid = nullptr;
+	grid = memnew(EditorPropertyLayers);
+	grid->set_h_size_flags(SIZE_EXPAND_FILL);
+	grid->setup(EditorPropertyLayers::LAYER_RENDER_3D);
+	settings_vbc->add_margin_child(TTR("Cull Mask"), grid);
 
 	/* XFORM DIALOG */
 
