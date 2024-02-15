@@ -8564,7 +8564,7 @@ Node3DEditor::Node3DEditor() {
 	settings_dialog->set_title(TTR("Viewport Settings"));
 	add_child(settings_dialog);
 	settings_vbc = memnew(VBoxContainer);
-	settings_vbc->set_custom_minimum_size(Size2(200, 0) * EDSCALE);
+	settings_vbc->set_custom_minimum_size(Size2(300, 0) * EDSCALE);
 	settings_dialog->add_child(settings_vbc);
 
 	settings_fov = memnew(SpinBox);
